@@ -33,17 +33,17 @@ VAR
     FOR j:= 1 TO 21 DO
      BEGIN
      IF ((f = 1) OR ( f = 8)) AND ((j <= 8) OR ((j >= 14) AND (j <= 21))) THEN
-       tab_cod_qr[f,j]:= 'C'
+       tab_cod_qr[f,j]:= 'O'
      ELSE IF ((f >= 2) AND (f <= 7)) AND ( ((j = 1) OR (j = 8)) OR ((j = 14) OR (j = 21)) ) THEN
-       tab_cod_qr[f,j]:= 'C'
+       tab_cod_qr[f,j]:= 'O'
      ELSE IF ((f = 7) AND ((j >= 9) AND (j <= 13))) THEN
-       tab_cod_qr[f,j]:= 'C'
+       tab_cod_qr[f,j]:= 'O'
      ELSE IF ((f >= 9) AND (f <= 13)) AND (j = 7) THEN
-       tab_cod_qr[f,j]:= 'C'
+       tab_cod_qr[f,j]:= 'O'
      ELSE IF ((f = 14) OR (f = 21)) AND ((j <= 8)) THEN
-       tab_cod_qr[f,j]:= 'C'
+       tab_cod_qr[f,j]:= 'O'
      ELSE IF ((f >= 15) AND (f <= 20)) AND ((j = 1) OR (j = 8)) THEN
-       tab_cod_qr[f,j]:= 'C';
+       tab_cod_qr[f,j]:= 'O';
     END;
    END
  END;
@@ -145,9 +145,9 @@ VAR
   BEGIN
    IF f = contador_columna THEN
     IF cadena_reservada[f] = '0' THEN
-     asigna_digitos:= 'Z'
+     asigna_digitos:= 'X'
     ELSE
-     asigna_digitos:= 'O';
+     asigna_digitos:= 'V';
   END;
  END;
 
