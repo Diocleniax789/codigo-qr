@@ -138,74 +138,103 @@ VAR
   cadena_a_binario:= aux;
  END;
 
-FUNCTION asigna_digitos(cadena_final: string; contador_columna: integer): string;
+FUNCTION  asigna_digitos(cadena_reservada: string; contador_columna: integer): string;
 VAR
  f: integer;
  BEGIN
- FOR f:= 1 TO Length(cadena_final) DO
+ FOR f:= 1 TO Length(cadena_reservada) DO
   BEGIN
-   IF contador_columna = 1 THEN
-    BEGIN
-    cadena_final[f]:= '*';
-    asigna_digitos:= cadena_final[f];
-    writeln('si',asigna_digitos);
-    break;
-    END
-   ELSE
-    asigna_digitos:= cadena_final[f];                                                        ////ACA ME QUEDE, TODOS ME OCUPAN UN MISMO NUMEOR
+   IF f = contador_columna THEN
+    IF cadena_reservada[f] = '0' THEN
+     asigna_digitos:= ' '
+    ELSE
+     asigna_digitos:= '|';
+
   END;
  END;
 
-PROCEDURE cargar_codigo_qr(cadena_completa: string; fila: integer);
+PROCEDURE cargar_digitos_en_la_tabla(cadena_completa: string; fila,fila_final: integer);
 VAR
- cadena_final: string;
- fila_final,contador_columna,columna_final,f,j: integer;
- BEGIN
- cadena_final:= cadena_completa;
- columna_final:= 21;
- fila_final:= 21;
- FOR f:= fila TO fila_final DO
+ cadena_reservada: string;
+ f,j,final_columna,contador_columna,pos_fila: integer;
+ BEGIN;
+ cadena_reservada:= cadena_completa;
+ final_columna:= 21;
+ pos_fila:= 0;
+ for f:= fila to fila_final do
   BEGIN
-   contador_columna:= 0;
-   FOR j:= columna_final DOWNTO 20 DO
+  If (pos_fila = 0) THEN
+   BEGIN
+   contador_columna:= pos_fila;
+   FOR j:= final_columna DOWNTO  20 DO
     BEGIN
-    contador_columna:= contador_columna + 1;
-     tab_cod_qr[f,j]:= asigna_digitos(cadena_final,contador_columna);
-    END;
-    contador_columna:= 0;
+     contador_columna:= contador_columna + 1;
+     tab_cod_qr[f,j]:= asigna_digitos(cadena_reservada,contador_columna);
+     END;
+     pos_fila:= pos_fila +  2;
+    END
+   ELSE
+   IF (contador_columna >= 2) AND (contador_columna <= 8) THEN
+   begin
+   contador_columna:= pos_fila;
+   FOR j:= final_columna DOWNTO  20 DO
+    BEGIN
+     begin
+     contador_columna:= contador_columna + 1;
+     tab_cod_qr[f,j]:= asigna_digitos(cadena_reservada,contador_columna);
+     END;
+     END;
+     pos_fila:= pos_fila +  2;
+      END;
+   END;
+
   END;
- END;
+
+
 
 PROCEDURE convertir_legajo_a_binario(legajo: string);
 VAR
  digito,cadena_completa: string;
- D,D1,D2,D3,D4,f,long_legajo: integer;
+ D,D1,D2,D3,D4,f,long_legajo,fila_final: integer;
  BEGIN
  long_legajo:= Length(legajo);
  D:= 0;
  D1:= 21;
+ D2:= 18;
+ D4:= 14;
  FOR f:= 1 TO long_legajo DO
   BEGIN
   D:= D + 1;
   CASE D OF
        1:BEGIN
          D1:= D1 - 3;
+         fila_final:= 21;
+         writeln();
+         WRITELN('este es la columna:',D1);
          digito:= legajo[f];
          cadena_completa:=cadena_a_binario(digito);
-         cargar_codigo_qr(cadena_completa,D1);
-         writeln();
-         muestra_tabla;
-         delay(5000);
+         WRITELN(cadena_completa);
+         writeln(cadena_completa);
+         cargar_digitos_en_la_tabla(cadena_completa,D1,fila_final);
+
          END;
 
        2:BEGIN
-         digito:= legajo[f];
-         cadena_completa:=cadena_a_binario(digito);
+          D2:= D2 - 4;
+          fila_final:= 17;
+          digito:= legajo[f];
+          cadena_completa:=cadena_a_binario(digito);
+          cargar_digitos_en_la_tabla(cadena_completa,D2,fila_final);
+
          END;
 
        3:BEGIN
-         digito:= legajo[f];
-         cadena_completa:=cadena_a_binario(digito);
+          D3:= D3 - 4;
+          fila_final:= 13;
+          digito:= legajo[f];
+          cadena_completa:=cadena_a_binario(digito);
+          cargar_digitos_en_la_tabla(cadena_completa,D3,fila_final);
+
          END;
 
        4:BEGIN
@@ -217,7 +246,9 @@ VAR
 
   END;
  END;
+   muestra_tabla;
  END;
+
 
 
 
