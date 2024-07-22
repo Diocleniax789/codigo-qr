@@ -244,40 +244,55 @@ VAR
 
 PROCEDURE generar_codigo_qr;
 VAR
+ long_legajo: integer;
  legajo,op: string;
  BEGIN
  REPEAT
  clrscr;
  textcolor(white);
  legajo:= crear_legajo;
- convertir_legajo_a_binario(legajo);
- writeln();
- writeln();
- writeln('=================');
- writeln('QR CODE GENERATED');
- writeln('=================');
- writeln();
- textcolor(green);
- muestra_tabla;
- writeln();
- writeln();
- REPEAT
- textcolor(white);
- writeln('===============================================');
- writeln('Would you like to generate a new QR[s/n]?: ');
- readln(op);
- IF (op <> 's') AND (op <> 'n') THEN
+ long_legajo:= Length(legajo);
+ writeln(long_legajo);
+ IF long_legajo < 3 THEN
   BEGIN
   textcolor(lightred);
   writeln();
-  writeln('=======================================');
-  writeln('X VALOR INCORRECTO, VUELVA A INGRESAR X');
-  writeln('=======================================');
+  writeln('==================================');
+  writeln('X INGRESE UN NUMERO DE 4 DIGITOS X');
+  writeln('==================================');
+  writeln();
+  END
+ ELSE
+  BEGIN
+  convertir_legajo_a_binario(legajo);
+  writeln();
+  writeln();
+  writeln('=================');
+  writeln('QR CODE GENERATED');
+  writeln('=================');
+  writeln();
+  textcolor(green);
+  muestra_tabla;
+  writeln();
   writeln();
   END;
- UNTIL (op = 's') OR (op = 'n');
- UNTIL (op = 'n');
- END;
+  REPEAT
+  textcolor(white);
+  writeln('===============================================');
+  writeln('Would you like to generate a new QR[s/n]?: ');
+  readln(op);
+  IF (op <> 's') AND (op <> 'n') THEN
+   BEGIN
+   textcolor(lightred);
+   writeln();
+   writeln('=======================================');
+   writeln('X VALOR INCORRECTO, VUELVA A INGRESAR X');
+   writeln('=======================================');
+   writeln();
+   END;
+  UNTIL (op = 's') OR (op = 'n');
+  UNTIL (op = 'n');
+  END;
 
 PROCEDURE logo_menu;
  BEGIN
