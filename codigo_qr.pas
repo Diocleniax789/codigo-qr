@@ -33,17 +33,17 @@ VAR
     FOR j:= 1 TO 21 DO
      BEGIN
      IF ((f = 1) OR ( f = 8)) AND ((j <= 8) OR ((j >= 14) AND (j <= 21))) THEN
-       tab_cod_qr[f,j]:= 'c'
+       tab_cod_qr[f,j]:= 'C'
      ELSE IF ((f >= 2) AND (f <= 7)) AND ( ((j = 1) OR (j = 8)) OR ((j = 14) OR (j = 21)) ) THEN
-       tab_cod_qr[f,j]:= 'c'
+       tab_cod_qr[f,j]:= 'C'
      ELSE IF ((f = 7) AND ((j >= 9) AND (j <= 13))) THEN
-       tab_cod_qr[f,j]:= 'c'
+       tab_cod_qr[f,j]:= 'C'
      ELSE IF ((f >= 9) AND (f <= 13)) AND (j = 7) THEN
-       tab_cod_qr[f,j]:= 'c'
+       tab_cod_qr[f,j]:= 'C'
      ELSE IF ((f = 14) OR (f = 21)) AND ((j <= 8)) THEN
-       tab_cod_qr[f,j]:= 'c'
+       tab_cod_qr[f,j]:= 'C'
      ELSE IF ((f >= 15) AND (f <= 20)) AND ((j = 1) OR (j = 8)) THEN
-       tab_cod_qr[f,j]:= 'c';
+       tab_cod_qr[f,j]:= 'C';
     END;
    END
  END;
@@ -67,7 +67,7 @@ VAR
  i: integer;
  digito,aux_1,aux_2,numero_entero_string: string;
  BEGIN
- writeln('>>> Ingrese numero de lejago <solamente cuatro digitos>: ');
+ writeln('>>> Enter a code <Only 4 digits>: ');
  digito:= readkey;
  i:= 0;
  WHILE digito <> #13 DO
@@ -145,9 +145,9 @@ VAR
   BEGIN
    IF f = contador_columna THEN
     IF cadena_reservada[f] = '0' THEN
-     asigna_digitos:= ' '
+     asigna_digitos:= 'Z'
     ELSE
-     asigna_digitos:= '1';
+     asigna_digitos:= 'O';
   END;
  END;
 
@@ -259,11 +259,12 @@ VAR
  writeln();
  textcolor(green);
  muestra_tabla;
- writeln;
+ writeln();
+ writeln();
  REPEAT
  textcolor(white);
  writeln('===============================================');
- writeln('Desea volver a crear un nuevo codigo QR[s/m]?: ');
+ writeln('Would you like to generate a new QR[s/m]?: ');
  readln(op);
  IF (op <> 's') AND (op <> 'n') THEN
   BEGIN
