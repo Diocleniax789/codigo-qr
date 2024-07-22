@@ -264,7 +264,7 @@ VAR
  REPEAT
  textcolor(white);
  writeln('===============================================');
- writeln('Would you like to generate a new QR[s/m]?: ');
+ writeln('Would you like to generate a new QR[s/n]?: ');
  readln(op);
  IF (op <> 's') AND (op <> 'n') THEN
   BEGIN
@@ -279,13 +279,29 @@ VAR
  UNTIL (op = 'n');
  END;
 
+PROCEDURE logo_menu;
+ BEGIN
+ textcolor(lightgreen);
+ writeln('======================================================================');
+ writeln('  _ \    _ \     ___|                                 |               ');
+ writeln(' |   |  |   |   |       _ \  __ \    _ \   __|  _` |  __|   _ \    __|');
+ writeln(' |   |  __ <    |   |   __/  |   |   __/  |    (   |   |    (   |  |  ');
+ writeln('\__\_\ _| \_\  \____| \___| _|  _| \___| _|   \__,_|  \__| \___/  _|  ');
+ writeln('======================================================================');
+ writeln();
+ END;
+
 PROCEDURE menu_principal;
 VAR
  op: integer;
  BEGIN
  REPEAT
  clrscr;
+ logo_menu;
  textcolor(white);
+ writeln('MENU PRINCIPAL');
+ writeln('--------------');
+ writeln();
  writeln('1. Generar codigo QR');
  writeln('2. Salir');
  writeln();
